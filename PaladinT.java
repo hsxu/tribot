@@ -29,28 +29,28 @@ extends Script {
     public RSTile lumbyTile = new RSTile(3222, 3219, 0);
 	
     public RSTile[] pathToBank = new RSTile[]{new RSTile(2586, 3297, 0), 
-											  new RSTile(2592, 3297, 0), 
-											  new RSTile(2597, 3297, 0), 
-											  new RSTile(2605, 3296, 0), 
-											  new RSTile(2611, 3297, 0), 
-											  new RSTile(2616, 3298, 0), 
-											  new RSTile(2625, 3298, 0), 
-											  new RSTile(2631, 3290, 0), 
-											  new RSTile(2640, 3286, 0), 
-											  new RSTile(2645, 3283, 0), 
-											  this.BankTile};
+					      new RSTile(2592, 3297, 0), 
+					      new RSTile(2597, 3297, 0), 
+					      new RSTile(2605, 3296, 0), 
+					      new RSTile(2611, 3297, 0), 
+					      new RSTile(2616, 3298, 0), 
+					      new RSTile(2625, 3298, 0), 
+					      new RSTile(2631, 3290, 0), 
+					      new RSTile(2640, 3286, 0), 
+					      new RSTile(2645, 3283, 0), 
+					      this.BankTile};
 											  
     public RSTile[] pathToPaladins = new RSTile[]{new RSTile(2645, 3283, 0), 
-												  new RSTile(2640, 3288, 0), 
-												  new RSTile(2631, 3296, 0), 
-												  new RSTile(2625, 3298, 0), 
-												  new RSTile(2616, 3298, 0), 
-												  new RSTile(2611, 3297, 0), 
-												  new RSTile(2605, 3296, 0), 
-												  new RSTile(2597, 3297, 0), 
-												  new RSTile(2592, 3297, 0), 
-												  new RSTile(2586, 3297, 0), 
-												  this.PaladinTile};
+						  new RSTile(2640, 3288, 0), 
+						  new RSTile(2631, 3296, 0), 
+						  new RSTile(2625, 3298, 0), 
+						  new RSTile(2616, 3298, 0), 
+						  new RSTile(2611, 3297, 0), 
+						  new RSTile(2605, 3296, 0), 
+						  new RSTile(2597, 3297, 0), 
+						  new RSTile(2592, 3297, 0), 
+						  new RSTile(2586, 3297, 0), 
+						  this.PaladinTile};
     int numFood = 25;
     int foodID = 379;
     int eatatHP = 15;
