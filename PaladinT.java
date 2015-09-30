@@ -38,7 +38,7 @@ extends Script {
 					      new RSTile(2631, 3290, 0), 
 					      new RSTile(2640, 3286, 0), 
 					      new RSTile(2645, 3283, 0), 
-					      this.BankTile};
+					      BankTile};
 											  
     RSTile[] pathToPaladins = new RSTile[]{new RSTile(2645, 3283, 0), 
 						  new RSTile(2640, 3288, 0), 
@@ -50,7 +50,7 @@ extends Script {
 						  new RSTile(2597, 3297, 0), 
 						  new RSTile(2592, 3297, 0), 
 						  new RSTile(2586, 3297, 0), 
-						  this.PaladinTile};
+						  PaladinTile};
     final int numFood = 25;
     final int foodID = 379;
     final int eatatHP = 15;
@@ -58,10 +58,10 @@ extends Script {
     boolean returnToBank = false;
 
     public void run() {
-        this.Initialize();
+        Initialize();
         do {
-            this.executeState();
-            this.sleep(200, 300);
+            executeState();
+            sleep(200, 300);
         } while (true);
     }
 
@@ -70,113 +70,113 @@ extends Script {
         Camera.setCameraAngle(100);
         Walking.control_click = true;
 		
-        RSItem[] Food = Inventory.find((int[])new int[]{this.foodID});
-        if (Food.length < 1) {
-            this.returnToBank = true;
-            this.openBank = true;
+        RSItem[] food = Inventory.find(new int[]{foodID});
+        if (food.length < 1) {
+            returnToBank = true;
+            openBank = true;
         }
     }
 
     public void executeState() {
         RSTile CurrentPosition = Player.getPosition();
-        int distanceToBank = CurrentPosition.distanceTo((Positionable)this.bankTile);
-        int distanceToPaladins = CurrentPosition.distanceTo((Positionable)this.paladinTile);
-        int distanceToSafeTile = CurrentPosition.distanceTo((Positionable)this.safeTile);
-        int distanceToLumby = CurrentPosition.distanceTo((Positionable)this.lumbyTile);
+        int distanceToBank = CurrentPosition.distanceTo((Positionable)bankTile);
+        int distanceToPaladins = CurrentPosition.distanceTo((Positionable)paladinTile);
+        int distanceToSafeTile = CurrentPosition.distanceTo((Positionable)safeTile);
+        int distanceToLumby = CurrentPosition.distanceTo((Positionable)lumbyTile);
 		
         if (Banking.isBankScreenOpen()) {
-            this.Bank();
-        } else if (DistanceToBank < 5 && this.OpenBank) {
-            this.openBank();
-        } else if (!(DistanceToBank >= 5 || this.OpenBank)) {
-            this.walkToPaladins();
-        } else if (DistanceToPaladins < 12 && this.ReturnToBank) {
-            this.walkToBank();
-        } else if (!(DistanceToPaladins >= 12 || this.ReturnToBank)) {
-            this.pickpocket();
-        } else if (DistanceToSafeTile < 5) {
-            Walking.walkTo((Positionable)this.paladinTile);
-        } else if (DistanceToLumby < 5) {
-            WebWalking.walkTo((Positionable)this.bankTile);
+            bank();
+        } else if (distanceToBank < 5 && openBank) {
+            openBank();
+        } else if (!(distanceToBank >= 5 || openBank)) {
+            walkToPaladins();
+        } else if (distanceToPaladins < 12 && returnToBank) {
+            walkToBank();
+        } else if (!(distanceToPaladins >= 12 || returnToBank)) {
+            pickpocket();
+        } else if (distanceToSafeTile < 5) {
+            Walking.walkTo((Positionable)paladinTile);
+        } else if (distanceToLumby < 5) {
+            WebWalking.walkTo((Positionable)bankTile);
         }
     }
 
     private void openBank() {
-        this.println((Object)"Opening Bank.");
+        println("Opening Bank.");
         int openBankAttempts = 0;
         Banking.openBankBooth();
         do {
             Banking.openBankBooth();
-            this.sleep(1000, 1200);
+            sleep(1000, 1200);
         } while (!Banking.isBankScreenOpen() || ++openBankAttempts == 10);
     }
 
     private void walkToPaladins() {
-        this.println((Object)"Walking to Paladins.");
-        Walking.walkPath((Positionable[])this.pathToPaladins);
+        println("Walking to Paladins.");
+        Walking.walkPath((Positionable[])pathToPaladins);
         while (Player.isMoving()) {
-            this.sleep(200, 300);
+            sleep(200, 300);
         }
     }
 
     private void walkToBank() {
-        this.println((Object)"Walking to Bank.");
-        Walking.walkPath((Positionable[])this.pathToBank);
+        println("Walking to Bank.");
+        Walking.walkPath((Positionable[])pathToBank);
         while (Player.isMoving()) {
-            this.sleep(200, 300);
+            sleep(200, 300);
         }
-        this.openBank = true;
+        openBank = true;
     }
 
-    private void Pickpocket() {
-        Paladin = NPCs.findNearest((int[])new int[]{2709});
-        this.println((Object)"Pickpocketing");
+    private void pickpocket() {
+        Paladin = NPCs.findNearest(new int[]{2709});
+        println("Pickpocketing");
         for (i = 0; i < 50; ++i) {
             Mouse.click((Point)new Point(
 				Projection.tileToMinimap(
 					(Positionable)new RSTile(Paladin[0].getPosition().getX(), 
 					Paladin[0].getPosition().getY(), 
 					Paladin[0].getPosition().getPlane()))),
-					(int)0);
+					0);
 					
-            DynamicClicking.clickRSNPC((RSCharacter)Paladin[0], (String)"Pickpocket Pal");
-            this.sleep(100, 125);
+            DynamicClicking.clickRSNPC(Paladin[0], ("Pickpocket Pal");
+            sleep(100, 125);
             if (Player.getRSPlayer().isInCombat()) {
-                this.sleep(1500, 1700);
+                sleep(1500, 1700);
             }
 			
             if (Paladin[0].isInCombat() && Player.getRSPlayer().isInCombat()) {
-                Walking.walkTo((Positionable)this.safeTile);
-                this.sleep(5000, 6000);
+                Walking.walkTo((Positionable)safeTile);
+                sleep(5000, 6000);
                 break;
             }
 			
-            if (!this.checkAllStatus()) break;
+            if (!checkAllStatus()) break;
         }
-        Walking.walkTo((Positionable)this.paladinTile);
-        this.println((Object)"Resetting Tile!");
+        Walking.walkTo(paladinTile);
+        println("Resetting Tile!");
     }
 
     private void bank() {
-        this.returnToBank = false;
-        this.println((Object)"Banking.");
+        returnToBank = false;
+        println("Banking.");
         Banking.depositAll();
-        Banking.withdraw((int)this.NumFood, (int[])new int[]{this.foodID});
+        Banking.withdrawNumFood, (new int[]{foodID}));
         Banking.close();
-        this.sleep(1000, 1200);
-        this.openBank = false;
+        sleep(1000, 1200);
+        openBank = false;
     }
 
     private boolean checkAllStatus() {
-        RSItem[] Food = Inventory.find((int[])new int[]{this.FoodID});
-        if (Food.length < 1) {
-            this.println((Object)"Returning to the bank.");
-            this.sleep(3000, 4000);
-            this.returnToBank = true;
+        RSItem[] food = Inventory.find(new int[]{FoodID});
+        if (food.length < 1) {
+            println("Returning to the bank.");
+            sleep(3000, 4000);
+            returnToBank = true;
             return false;
         }
-        if (Food.length > 0 && Skills.getCurrentLevel((String)"HITPOINTS") < this.eatatHP) {
-            Food[0].click(new String[]{"Eat"});
+        if (food.length > 0 && Skills.getCurrentLevel("HITPOINTS") < eatatHP) {
+            food[0].click(new String[]{"Eat"});
         }
         return true;
     }
