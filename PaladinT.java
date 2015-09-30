@@ -23,12 +23,12 @@ import org.tribot.script.ScriptManifest;
 @ScriptManifest(authors={"Hsxu"}, category="Thieving", name="PaladinThieveBETA")
 public class PaladinT
 extends Script {
-    public RSTile bankTile = new RSTile(2654, 3283, 0);
-    public RSTile paladinTile = new RSTile(2581, 3298, 0);
-    public RSTile safeTile = new RSTile(2590, 3306, 0);
-    public RSTile lumbyTile = new RSTile(3222, 3219, 0);
+    RSTile bankTile = new RSTile(2654, 3283, 0);
+    RSTile paladinTile = new RSTile(2581, 3298, 0);
+    RSTile safeTile = new RSTile(2590, 3306, 0);
+    RSTile lumbyTile = new RSTile(3222, 3219, 0);
 	
-    public RSTile[] pathToBank = new RSTile[]{new RSTile(2586, 3297, 0), 
+    RSTile[] pathToBank = new RSTile[]{new RSTile(2586, 3297, 0), 
 					      new RSTile(2592, 3297, 0), 
 					      new RSTile(2597, 3297, 0), 
 					      new RSTile(2605, 3296, 0), 
@@ -40,7 +40,7 @@ extends Script {
 					      new RSTile(2645, 3283, 0), 
 					      this.BankTile};
 											  
-    public RSTile[] pathToPaladins = new RSTile[]{new RSTile(2645, 3283, 0), 
+    RSTile[] pathToPaladins = new RSTile[]{new RSTile(2645, 3283, 0), 
 						  new RSTile(2640, 3288, 0), 
 						  new RSTile(2631, 3296, 0), 
 						  new RSTile(2625, 3298, 0), 
@@ -51,9 +51,9 @@ extends Script {
 						  new RSTile(2592, 3297, 0), 
 						  new RSTile(2586, 3297, 0), 
 						  this.PaladinTile};
-    int numFood = 25;
-    int foodID = 379;
-    int eatatHP = 15;
+    final int numFood = 25;
+    final int foodID = 379;
+    final int eatatHP = 15;
     boolean openBank = false;
     boolean returnToBank = false;
 
@@ -86,23 +86,17 @@ extends Script {
 		
         if (Banking.isBankScreenOpen()) {
             this.Bank();
-        }
-        if (DistanceToBank < 5 && this.OpenBank) {
+        } else if (DistanceToBank < 5 && this.OpenBank) {
             this.openBank();
-        }
-        if (!(DistanceToBank >= 5 || this.OpenBank)) {
+        } else if (!(DistanceToBank >= 5 || this.OpenBank)) {
             this.walkToPaladins();
-        }
-        if (DistanceToPaladins < 12 && this.ReturnToBank) {
+        } else if (DistanceToPaladins < 12 && this.ReturnToBank) {
             this.walkToBank();
-        }
-        if (!(DistanceToPaladins >= 12 || this.ReturnToBank)) {
+        } else if (!(DistanceToPaladins >= 12 || this.ReturnToBank)) {
             this.pickpocket();
-        }
-        if (DistanceToSafeTile < 5) {
+        } else if (DistanceToSafeTile < 5) {
             Walking.walkTo((Positionable)this.paladinTile);
-        }
-        if (DistanceToLumby < 5) {
+        } else if (DistanceToLumby < 5) {
             WebWalking.walkTo((Positionable)this.bankTile);
         }
     }
